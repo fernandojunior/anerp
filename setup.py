@@ -11,9 +11,6 @@ except ImportError:
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
-
 requirements = [
     # TODO: put package requirements here
 ]
@@ -26,7 +23,7 @@ setup(
     name='anerp',
     version='0.0.1',
     description="An ERP",
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     author="Fernando Felix do Nascimento Junior",
     author_email='fernandojr.ifcg@live.com',
     url='https://github.com/fernandojunior/anerp',
