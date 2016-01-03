@@ -1,47 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+from setuptools import setup, find_packages
+import anerp
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
-
-requirements = [
-    # TODO: put package requirements here
-]
-
-test_requirements = [
-    # TODO: put package test requirements here
-]
+README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+packages = find_packages(exclude=['*.tests', '*.tests.*', 'tests.*', 'tests'])
 
 setup(
-    name='anerp',
-    version='0.0.1',
-    description="An ERP",
-    long_description=readme,
-    author="Fernando Felix do Nascimento Junior",
-    author_email='fernandojr.ifcg@live.com',
-    url='https://github.com/fernandojunior/anerp',
-    packages=[
-        'anerp',
-    ],
-    package_dir={'anerp':
-                 'anerp'},
-    include_package_data=True,
-    install_requires=requirements,
-    license="ISCL",
-    zip_safe=False,
-    keywords='anerp',
+    author=anerp.__author__,
+    author_email=anerp.__email__,
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Environment :: Web Environment',
+        'Development Status :: 1 - Planning',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Natural Language :: English',
+        'Operating System :: OS Independent',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
@@ -49,7 +25,19 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-    ],
+    ],  # see more: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    description='An ERP',
+    include_package_data=True,
+    install_requires=[],
+    keywords='anerp',
+    license="ISCL",
+    long_description=README,
+    name='anerp',
+    packages=packages,
+    platforms='any',
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=[],
+    url='https://github.com/fernandojunior/anerp',
+    version=anerp.__version__,
+    zip_safe=False
 )
