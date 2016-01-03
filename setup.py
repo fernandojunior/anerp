@@ -3,10 +3,17 @@
 
 import os
 from setuptools import setup, find_packages
+from pip.req import parse_requirements as parse
 import anerp as package
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-packages = find_packages(exclude=['*.tests', '*.tests.*', 'tests.*', 'tests'])
+# Gives the relative path of a file from the setup.py
+relpath = lambda filename: os.path.join(os.path.dirname(__file__), filename)
+
+# Parse a requirements file to string list
+requirements = lambda f: [str(i.req) for i in parse(relpath(f), session=False)]
+
+# Read the README file
+README = open(relpath('README.rst')).read()
 
 setup(
     author=package.__author__,
@@ -28,15 +35,15 @@ setup(
     ],  # see more: https://pypi.python.org/pypi?%3Aaction=list_classifiers
     description='An ERP',
     include_package_data=True,
-    install_requires=[],
+    install_requires=requirements('requirements.txt'),
     keywords='anerp',
     license=package.__license__,
     long_description=README,
     name='anerp',
-    packages=packages,
+    packages=find_packages(exclude=['tests']),
     platforms='any',
     test_suite='tests',
-    tests_require=[],
+    tests_require=requirements('requirements/test.txt'),
     url='https://github.com/fernandojunior/anerp',
     version=package.__version__,
     zip_safe=False

@@ -69,6 +69,7 @@ Ready to contribute? Here's how to set up `anerp` for local development.
     $ mkvirtualenv anerp
     $ cd anerp/
     $ python setup.py develop
+    $ pip install -r requirements/dev.txt
 
 4. Create a branch for local development::
 
@@ -81,8 +82,6 @@ Ready to contribute? Here's how to set up `anerp` for local development.
     $ flake8 anerp tests
     $ python setup.py test
     $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub::
 
