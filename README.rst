@@ -15,7 +15,7 @@ anerp
 
 An ERP
 
-* Free software: ISC license
+* Free software: MIT license
 * Documentation: https://anerp.readthedocs.org.
 
 Features

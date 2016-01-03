@@ -3,19 +3,19 @@
 
 import os
 from setuptools import setup, find_packages
-import anerp
+import anerp as package
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 packages = find_packages(exclude=['*.tests', '*.tests.*', 'tests.*', 'tests'])
 
 setup(
-    author=anerp.__author__,
-    author_email=anerp.__email__,
+    author=package.__author__,
+    author_email=package.__email__,
     classifiers=[
         'Environment :: Web Environment',
         'Development Status :: 1 - Planning',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: ISC License (ISCL)',
+        'License :: OSI Approved :: ' + package.__license__,
         'Natural Language :: English',
         'Operating System :: OS Independent',
         "Programming Language :: Python :: 2",
@@ -30,7 +30,7 @@ setup(
     include_package_data=True,
     install_requires=[],
     keywords='anerp',
-    license="ISCL",
+    license=package.__license__,
     long_description=README,
     name='anerp',
     packages=packages,
@@ -38,6 +38,6 @@ setup(
     test_suite='tests',
     tests_require=[],
     url='https://github.com/fernandojunior/anerp',
-    version=anerp.__version__,
+    version=package.__version__,
     zip_safe=False
 )
