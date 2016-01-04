@@ -78,7 +78,6 @@ Ready to contribute? Here's how to set up `anerp` for local development.
     $ cd anerp/
     $ virtualenv env
     $ source env/bin/activate
-    $ python setup.py develop
     $ pip install -r requirements/dev.txt
 
 5. Create a branch for local development::
