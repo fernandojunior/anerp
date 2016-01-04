@@ -64,32 +64,42 @@ Ready to contribute? Here's how to set up `anerp` for local development.
 
     $ git clone git@github.com:your_name_here/anerp.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Make sure your system is up to date::
 
-    $ mkvirtualenv anerp
+    $ apt-get update
+    $ apt-get upgrade
+    $ apt-get install -y build-essential
+    $ apt-get install -y python2-dev python2-software-properties
+    $ apt-get install -y python3-dev python3-software-properties
+    $ apt-get install -y libpq-dev postgresql # PostgreSQL packages
+
+4. Install your local copy into a virtualenv. Assuming you have virtualenv installed, this is how you set up your fork for local development::
+
     $ cd anerp/
+    $ virtualenv env
+    $ source env/bin/activate
     $ python setup.py develop
     $ pip install -r requirements/dev.txt
 
-4. Create a branch for local development::
+5. Create a branch for local development::
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
+6. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
     $ flake8 anerp tests
     $ python setup.py test
     $ tox
 
-6. Commit your changes and push your branch to GitHub::
+7. Commit your changes and push your branch to GitHub::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
 -----------------------
@@ -100,7 +110,7 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.6, 2.7, 3.3, 3.4 and 3.5, and for PyPy. Check
+3. The pull request should work for Python 2.6, 2.7, 3.3, 3.4 and 3.5. Check
    https://travis-ci.org/fernandojunior/anerp/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
@@ -110,3 +120,6 @@ Tips
 To run a subset of tests::
 
     $ python -m unittest tests.test_anerp
+
+Workaround to fix broken virtualenv (copyreg, psycopg):
+    [virtualenv + python-future = broken virtualenv](https://github.com/PythonCharmers/python-future/issues/148#issuecomment-168605970)

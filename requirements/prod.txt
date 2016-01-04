@@ -1,10 +1,5 @@
 # Everything needed in production
 
-# Fundamental Python packages
-setuptools==18.5
-pip==7.1.2
-wheel==0.26.0
-
 # Flask with Python 3 support (see http://flask.pocoo.org/docs/0.10/python3/)
 Flask==0.10.1
 Werkzeug==0.10.4
@@ -15,7 +10,7 @@ itsdangerous==0.24
 # Database
 Flask-SQLAlchemy==2.1
 SQLAlchemy==1.0.9
-psycopg2==2.6.1
+psycopg2==2.6.1  # PostgreSQL connector
 
 # Migrations
 Flask-Migrate==1.6.0
