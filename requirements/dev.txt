@@ -6,10 +6,6 @@ coverage==4.0.3
 # Doc
 Sphinx==1.3.3
 
-# Requirements for travis deployment script (travis_pypi_setup.py)
-cryptography==1.0.1
-PyYAML==3.11
-
 # Prod requirements
 -r prod.txt
 
