@@ -27,8 +27,13 @@ matrix:
       env: REQUIREMENTS=lowest
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install tox
+install:
+    - pip install tox
+    - pip install codecov
 
 # command to run tests, e.g. python setup.py test
 script:
     - tox -e py-$REQUIREMENTS
+
+after_success:
+    - codecov
