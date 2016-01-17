@@ -2,15 +2,14 @@
 anerp
 ===============================
 
-.. image:: https://img.shields.io/pypi/v/anerp.svg
-        :target: https://pypi.python.org/pypi/anerp
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+        :target: https://github.com/fernandojunior/anerp/blob/master/LICENSE
 
 .. image:: https://img.shields.io/travis/fernandojunior/anerp.svg
         :target: https://travis-ci.org/fernandojunior/anerp
 
-.. image:: https://readthedocs.org/projects/anerp/badge/?version=latest
-        :target: https://readthedocs.org/projects/anerp/?badge=latest
-        :alt: Documentation Status
+.. image:: https://img.shields.io/codecov/c/github/fernandojunior/anerp.svg
+        :target: https://codecov.io/github/fernandojunior/anerp
 
 
 An ERP
