@@ -13,7 +13,8 @@ relpath = lambda filename: os.path.join(os.path.dirname(__file__), filename)
 requirements = lambda f: [str(i.req) for i in parse(relpath(f), session=False)]
 
 # Read the README file
-README = open(relpath('README.rst')).read()
+with open("README.rst") as f:
+    README = f.read()
 
 setup(
     author=package.__author__,
@@ -42,8 +43,6 @@ setup(
     name='anerp',
     packages=find_packages(exclude=['tests']),
     platforms='any',
-    test_suite='tests',
-    tests_require=requirements('requirements/test.txt'),
     url='https://github.com/fernandojunior/anerp',
     version=package.__version__,
     zip_safe=False

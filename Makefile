@@ -49,16 +49,17 @@ lint:
 	flake8 anerp tests
 
 test:
-	python setup.py test
+	py.test
 
 test-all:
 	tox
 
 coverage:
-	coverage run --source anerp setup.py test
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
+	coverage erase
+	coverage run -m py.test
+	coverage report --show-missing
+	# coverage html
+	#$(BROWSER) htmlcov/index.html
 
 docs:
 	rm -f docs/anerp.rst
