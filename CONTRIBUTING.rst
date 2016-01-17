@@ -89,7 +89,7 @@ Ready to contribute? Here's how to set up `anerp` for local development.
 6. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
     $ flake8 anerp tests
-    $ python setup.py test
+    $ pytest
     $ tox
 
 7. Commit your changes and push your branch to GitHub::
@@ -118,7 +118,4 @@ Tips
 
 To run a subset of tests::
 
-    $ python -m unittest tests.test_anerp
-
-Workaround to fix broken virtualenv (copyreg, psycopg):
-    [virtualenv + python-future = broken virtualenv](https://github.com/PythonCharmers/python-future/issues/148#issuecomment-168605970)
+    $ py.test tests/test_anerp.py
