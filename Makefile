@@ -16,6 +16,7 @@ help:
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "clean-test - remove test and coverage artifacts"
+	@echo "clean-flask - remove Flask file artifacts"
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
 	@echo "test-all - run tests on every Python version with tox"
@@ -25,7 +26,7 @@ help:
 	@echo "dist - package"
 	@echo "install - install the package to the active Python's site-packages"
 
-clean: clean-build clean-pyc clean-test
+clean: clean-build clean-pyc clean-test clean-flask
 
 clean-build:
 	rm -fr build/
@@ -44,6 +45,13 @@ clean-test:
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
+
+clean-flask:
+	rm -fr migrations
+	rm dev.db
+	find . -name 'common.css' -exec rm -f {} +
+	find . -name 'common.js' -exec rm -f {} +
+	find . -name '.webassets-cache' -exec rm -fr {} +
 
 lint:
 	flake8 anerp tests
