@@ -1,7 +1,9 @@
 # Everything the developer needs
 
-# Code test
+# Test
 pytest==2.8.5
+WebTest==2.0.20
+factory-boy==2.6.0
 
 # Code/test coverage
 coverage==4.0.3

@@ -57,3 +57,16 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Flask-Migrate
+migrations/
+
+# Flask-Assets
+common.css
+common.js
+.webassets-cache
+
+# sqlite
+*.db
+
+TODO.rst
