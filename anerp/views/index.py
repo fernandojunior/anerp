@@ -1,8 +1,0 @@
-from flask import Blueprint, url_for, redirect
-
-blueprint = Blueprint('index', __name__, static_folder='../static')
-
-
-@blueprint.route('/')
-def index():
-    return redirect(url_for('static', filename='index.html'))

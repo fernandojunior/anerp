@@ -4,8 +4,8 @@ from flask import Flask, render_template
 
 from .ext import assets, bcrypt, cache, db, debug_toolbar, login_manager, \
     migrate
-from .views import index
-from . import user, public
+from . import public, user
+from .core import blueprints
 
 
 def create_app(config):
@@ -36,7 +36,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     """Register Flask blueprints."""
-    app.register_blueprint(index.blueprint)
+    app.register_blueprint(blueprints.main)
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
     return None
