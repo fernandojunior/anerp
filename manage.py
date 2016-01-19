@@ -13,8 +13,6 @@ from anerp.settings import DevConfig, ProdConfig
 from anerp.user.models import User
 
 CONFIG = ProdConfig if os.environ.get('ANERP_ENV') == 'prod' else DevConfig
-HERE = os.path.abspath(os.path.dirname(__file__))
-
 app = create_app(CONFIG)
 manager = Manager(app)
 
