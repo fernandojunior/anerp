@@ -2,8 +2,8 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from .ext import bcrypt, cache, db, debug_toolbar, login_manager, migrate
-from .assets import assets
+from .ext import assets, bcrypt, cache, db, debug_toolbar, login_manager, \
+    migrate
 from .views import index
 from . import user, public
 
