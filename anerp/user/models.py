@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """User models."""
-import datetime as dt
+from datetime import datetime
 
 from flask_login import UserMixin
 
-from ..database import Column, Model, SurrogatePK, db, reference_col, relationship
+from ..database import Column, Model, SurrogatePK, db, reference_col, \
+    relationship
 from ..ext import bcrypt
 
 
@@ -33,7 +34,7 @@ class User(UserMixin, SurrogatePK, Model):
     email = Column(db.String(80), unique=True, nullable=False)
     #: The hashed password
     password = Column(db.String(128), nullable=True)
-    created_at = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
+    created_at = Column(db.DateTime, nullable=False, default=datetime.utcnow)
     first_name = Column(db.String(30), nullable=True)
     last_name = Column(db.String(30), nullable=True)
     active = Column(db.Boolean(), default=False)
