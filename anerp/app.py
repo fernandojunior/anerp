@@ -2,10 +2,10 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from anerp.ext import bcrypt, cache, db, debug_toolbar, login_manager, migrate
-from anerp.assets import assets
-from anerp.views import index
-from anerp import user, public
+from .ext import bcrypt, cache, db, debug_toolbar, login_manager, migrate
+from .assets import assets
+from .views import index
+from . import user, public
 
 
 def create_app(config):

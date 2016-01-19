@@ -4,8 +4,8 @@ import datetime as dt
 
 from flask_login import UserMixin
 
-from anerp.database import Column, Model, SurrogatePK, db, reference_col, relationship
-from anerp.ext import bcrypt
+from ..database import Column, Model, SurrogatePK, db, reference_col, relationship
+from ..ext import bcrypt
 
 
 class Role(SurrogatePK, Model):

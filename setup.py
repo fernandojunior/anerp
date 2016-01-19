@@ -39,7 +39,7 @@ setup(
     install_requires=requirements('requirements.txt'),
     license=__about__['__license__'],
     long_description=README,
-    name='anerp',
+    name=__about__['__slug__'],
     packages=find_packages(exclude=['tests']),
     platforms='any',
     url=__about__['__url__'],

@@ -2,6 +2,8 @@
 
 REM Command file for Sphinx documentation
 
+PROJECT_SLUG=anerp
+
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
@@ -115,9 +117,9 @@ if "%1" == "qthelp" (
 	echo.
 	echo.Build finished; now you can run "qcollectiongenerator" with the ^
 .qhcp project file in %BUILDDIR%/qthelp, like this:
-	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\anerp.qhcp
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\%PROJECT_SLUG%.qhcp
 	echo.To view the help file:
-	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\anerp.ghc
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\%PROJECT_SLUG%.ghc
 	goto end
 )
 

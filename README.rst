@@ -29,7 +29,7 @@ First, set your app's secret key as an environment variable. For example, exampl
 
 .. code-block:: bash
 
-    export ANERP_SECRET='something-really-secret'
+    export FLASK_SECRET_KEY='something-really-secret'
 
 
 Then run the following commands to bootstrap your environment.

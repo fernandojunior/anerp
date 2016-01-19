@@ -1,3 +1,5 @@
+PROJECT_SLUG  = anerp
+
 .PHONY: clean-pyc clean-build docs clean
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -54,7 +56,7 @@ clean-flask:
 	find . -name '.webassets-cache' -exec rm -fr {} +
 
 lint:
-	flake8 anerp tests
+	flake8 $(PROJECT_SLUG) tests
 
 test:
 	py.test
@@ -70,9 +72,9 @@ coverage:
 	#$(BROWSER) htmlcov/index.html
 
 docs:
-	rm -f docs/anerp.rst
+	rm -f docs/$(PROJECT_SLUG).rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ anerp
+	sphinx-apidoc -o docs/ $(PROJECT_SLUG)
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
