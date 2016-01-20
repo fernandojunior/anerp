@@ -4,12 +4,11 @@ from datetime import datetime
 
 from flask_login import UserMixin
 
-from anerp.database import Column, Model, SurrogatePK, db, reference_col, \
-    relationship
+from anerp.database import Column, Model, db, reference_col, relationship
 from anerp.ext import bcrypt
 
 
-class Role(SurrogatePK, Model):
+class Role(Model):
     """A role for a user."""
 
     __tablename__ = 'roles'
@@ -26,7 +25,7 @@ class Role(SurrogatePK, Model):
         return '<Role({name})>'.format(name=self.name)
 
 
-class User(UserMixin, SurrogatePK, Model):
+class User(UserMixin, Model):
     """A user of the app."""
 
     __tablename__ = 'users'

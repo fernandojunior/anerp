@@ -44,12 +44,6 @@ class CRUDMixin(object):
         return commit and db.session.commit()
 
 
-class Model(CRUDMixin, db.Model):
-    """Base model class that includes CRUD convenience methods."""
-
-    __abstract__ = True
-
-
 # From Mike Bayer's "Building the app" talk
 # https://speakerdeck.com/zzzeek/building-the-app
 class SurrogatePK(object):
@@ -71,6 +65,12 @@ class SurrogatePK(object):
         ):
             return cls.query.get(int(record_id))
         return None
+
+
+class Model(CRUDMixin, SurrogatePK, db.Model):
+    """Base model class that includes CRUD convenience methods."""
+
+    __abstract__ = True
 
 
 def reference_col(tablename, nullable=False, pk_name='id', **kwargs):
