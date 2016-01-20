@@ -3,17 +3,13 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 
-from ..ext import login_manager
-from ..public.forms import LoginForm
-from ..user.forms import RegisterForm
-from ..user.models import User
-from ..utils import flash_errors
+from anerp.ext import login_manager
+from anerp.forms.public import LoginForm
+from anerp.forms.user import RegisterForm
+from anerp.models.user import User
+from anerp.utils import flash_errors
 
-blueprint = Blueprint(
-    'public',
-    __name__,
-    url_prefix='/public',
-    static_folder='../static')
+blueprint = Blueprint('public', __name__, static_folder='static')
 
 
 @login_manager.user_loader

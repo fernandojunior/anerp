@@ -10,7 +10,7 @@ from flask_script.commands import ShowUrls
 from anerp.app import create_app
 from anerp.database import db
 from anerp.settings import DevConfig, ProdConfig
-from anerp.user.models import User
+from anerp.models.user import User
 
 CONFIG = ProdConfig if os.environ.get('ANERP_ENV') == 'prod' else DevConfig
 app = create_app(CONFIG)

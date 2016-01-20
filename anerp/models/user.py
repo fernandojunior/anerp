@@ -4,9 +4,9 @@ from datetime import datetime
 
 from flask_login import UserMixin
 
-from ..database import Column, Model, SurrogatePK, db, reference_col, \
+from anerp.database import Column, Model, SurrogatePK, db, reference_col, \
     relationship
-from ..ext import bcrypt
+from anerp.ext import bcrypt
 
 
 class Role(SurrogatePK, Model):
