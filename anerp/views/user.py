@@ -2,7 +2,7 @@
 """User views."""
 from flask import Blueprint, render_template
 from flask_login import login_required
-from anerp.restful import Api, Resource, parse
+from anerp.restful import Api, marshal_with, request_parser, Resource
 from anerp.models.user import User
 
 blueprint = Blueprint('user', __name__, static_folder='static')
@@ -16,44 +16,43 @@ def members():
     """List members."""
     return render_template('users/members.html')
 
+arguments = {
+    'id': {'type': int, 'help': 'The user\'s id'},
+    'username': {'help': 'The user\'s username'},
+    'email': {'help': 'The user\'s email'},
+    'password': {'help': 'The user\'s password'},
+    'first_name': {'help': 'The user\'s first name'},
+    'last_name': {'help': 'The user\'s last name'}}
 
-from flask_restful import fields, marshal_with
-from flask_restful.reqparse import Argument
+patch_parser = request_parser(arguments, remove=['id'])  # create new parser
 
-user_arguments = [
-    Argument('username', required=True, help='The user\'s username'),
-    Argument('email', required=True, help='The user\'s email'),
-    Argument('password', required=True, help='The user\'s password'),
-    Argument('first_name', help='The user\'s first name'),
-    Argument('last_name', help='The user\'s last name')
-]
+post_parser = request_parser(  # copy patch_parser
+    patch_parser,
+    update={  # update some arguments
+        'username': {'required': True},
+        'email': {'required': True},
+        'password': {'required': True}},
+    remove=['first_name', 'last_name'])
 
-
-# user_arguments2 = dict(
-#     username={'required': True, 'help': 'The user\'s username'},
-#     email={'required': True, 'help': 'The user\'s email'},
-#     password={'required': True, 'help': 'The user\'s password'},
-#     first_name={'help': 'The user\'s first name'},
-#     last_name={'help': 'The user\'s last name'})
-
-user_fields = {
-    'id': fields.Integer,
-    'username': fields.String,
-    'email': fields.String}
+public_fields = User.marshal_fields(
+    'id',
+    'username',
+    'email',
+    'first_name',
+    'last_name',
+    'created_at')
 
 
 @api.route('/<int:id>')
 class UserApi(Resource):
 
-    @marshal_with(user_fields)
+    @marshal_with(public_fields)
     def get(self, id):
         return User.query.get_or_404(id)
 
     def patch(self, id):
         user = User.query.get_or_404(id)
-        args = parse('*', user_arguments)
-        print(type(args))
-        print(dir(args))
+        args = patch_parser.parse_args()
         for key, value in args.items():
             setattr(user, key, value)
         user.update()
@@ -68,12 +67,15 @@ class UserApi(Resource):
 @api.route('/')
 class UserList(Resource):
 
-    @marshal_with(user_fields)
+    @marshal_with(public_fields)
     def get(self):
         return User.query.all()
 
-    @marshal_with(user_fields)
+    @marshal_with(public_fields)
     def post(self):
-        args = parse('username email password', user_arguments)
-        user = User.create(args.username, args.email, args.password)
+        args = post_parser.parse_args()
+        user = User.create(
+            username=args.username,
+            email=args.email,
+            password=args.password)
         return user
