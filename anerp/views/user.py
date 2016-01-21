@@ -74,8 +74,5 @@ class UserList(Resource):
     @marshal_with(public_fields)
     def post(self):
         args = post_parser.parse_args()
-        user = User.create(
-            username=args.username,
-            email=args.email,
-            password=args.password)
+        user = User.create(**args)
         return user
