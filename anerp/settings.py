@@ -15,6 +15,7 @@ class Config(object):
     ASSETS_DEBUG = False
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    BUNDLE_ERRORS = True  # Flask-RESTful error handling
 
 
 class ProdConfig(Config):
