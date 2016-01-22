@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 
 from .compat import basestring
 from .ext import db
-from .restful import create_marshal_fields
+from .restful import create_marshaller
 
 # Alias common SQLAlchemy names
 Column = db.Column
@@ -87,12 +87,12 @@ class RESTFulMixin(object):
     '''
 
     @classmethod
-    def marshal_fields(cls, *args):
-        '''Create fields based on model columns (args) to be used with
+    def create_marshaller(cls, *args):
+        '''Create marshaller based on model columns (args) to be used with
         `flask_restful.marshal`
         '''
         column_types = [getattr(cls, col).type.python_type for col in args]
-        return create_marshal_fields(args, column_types)
+        return create_marshaller(args, column_types)
 
 
 class Model(RESTFulMixin, CRUDMixin, SurrogatePK, db.Model):
