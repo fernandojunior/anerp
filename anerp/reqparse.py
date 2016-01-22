@@ -41,7 +41,6 @@ class RequestParser(OriginalRequestParser):
     def copy(self, update=None, remove=None):
         ''' Creates a copy with the same set of arguments. '''
         parsercopy = super(RequestParser, self).copy()
-        # parsercopy = flask_restful.reqparse.RequestParser.copy(self)
         if update:
             parsercopy.update_arguments(update)
         if remove:
