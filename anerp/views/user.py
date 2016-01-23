@@ -5,34 +5,40 @@ from anerp.reqparse import RequestParser
 from anerp.models.user import User
 from anerp.restful import jsonify
 
+from flask_restful import fields
+
 Model = User
 
 blueprint = Blueprint(Model.__name__, __name__, static_folder='static')
 
-arguments = {
-    'id': {'type': int, 'help': 'The user\'s id'},
+request_arguments = {
     'username': {'help': 'The user\'s username'},
     'email': {'help': 'The user\'s email'},
     'password': {'help': 'The user\'s password'},
     'first_name': {'help': 'The user\'s first name'},
     'last_name': {'help': 'The user\'s last name'}}
 
-patch_parser = RequestParser(arguments=arguments, remove=['id'])
+request_parsers = {
+    'patch': RequestParser(arguments=request_arguments),
+    'post': RequestParser(
+        arguments=request_arguments,
+        select=['username', 'email', 'password'],
+        update={
+            'username': {'required': True},
+            'email': {'required': True},
+            'password': {'required': True}})
+}
 
-post_parser = patch_parser.copy(
-    update={
-        'username': {'required': True},
-        'email': {'required': True},
-        'password': {'required': True}},
-    remove=['first_name', 'last_name'])
-
-marshaller = Model.create_marshaller(
-    'id',
-    'username',
-    'email',
-    'first_name',
-    'last_name',
-    'created_at')
+marshaller = {
+    'id': fields.Integer,
+    'username': fields.String,
+    'email': fields.String,
+    'first_name': fields.String,
+    'last_name': fields.String,
+    'full_name': fields.String,
+    'active': fields.Boolean,
+    'create_at': fields.DateTime(dt_format='iso8601')
+}
 
 
 @blueprint.route('/')
@@ -45,7 +51,7 @@ def get(id=None):
 @blueprint.route('/<int:id>', methods=['PATCH'])
 def patch(id):
     obj = Model.query.get_or_404(id)
-    args = patch_parser.parse_args()
+    args = request_parsers['patch'].parse()
     for key, value in args.items():
         setattr(obj, key, value)
     obj.update()
@@ -60,5 +66,5 @@ def delete(id):
 
 @blueprint.route('/', methods=['POST'])
 def post():
-    args = post_parser.parse_args()
+    args = request_parsers['post'].parse()
     return get(Model.create(**args).id)
