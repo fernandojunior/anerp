@@ -8,7 +8,6 @@ class RequestParser(OriginalRequestParser):
         arguments = kargs.pop('arguments', None)
         select = kargs.pop('select', None)
         update = kargs.pop('update', None)
-        remove = kargs.pop('remove', None)
         super(RequestParser, self).__init__(*args, **kargs)
         if arguments:
             if select:  # add just selected arguments
@@ -16,8 +15,6 @@ class RequestParser(OriginalRequestParser):
             self.add_arguments(arguments)
         if update:
             self.update_arguments(update)
-        if remove:
-            self.remove_arguments(remove)
 
     def add_arguments(self, arguments):
         '''Add arguments to be parsed. Accepts either a dictionary of arguments
@@ -46,3 +43,7 @@ class RequestParser(OriginalRequestParser):
         if remove:
             parsercopy.remove_arguments(remove)
         return parsercopy
+
+    def parse(self, *args, **kwargs):
+        '''`parse_args` alias.'''
+        return self.parse_args(*args, **kwargs)
