@@ -34,8 +34,8 @@ First, set your app's secret key as an environment variable. For example, exampl
 
 Then run the following commands to bootstrap your environment.
 
-
 ::
+
     sudo apt-get install build-essential libssl-dev libffi-dev python-dev
     git clone https://github.com/fernandojunior/anerp
     cd anerp
@@ -52,8 +52,6 @@ Once you have installed your DBMS, run the following to create your app's databa
     python manage.py db migrate
     python manage.py db upgrade
     python manage.py server
-
-
 
 Deployment
 ----------
