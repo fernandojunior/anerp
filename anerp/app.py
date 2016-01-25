@@ -28,13 +28,11 @@ def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)
-    return None
 
 
 def register_blueprints(app):
     '''Register Flask blueprints.'''
     app.register_blueprint(main.blueprint, url_prefix='/')
-    return None
 
 
 def register_apis(app):
