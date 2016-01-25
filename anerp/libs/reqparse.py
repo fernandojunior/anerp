@@ -7,7 +7,6 @@ from flask import abort as original_flask_abort
 from flask import current_app, request
 from werkzeug.datastructures import MultiDict, FileStorage
 from werkzeug import exceptions
-import flask_restful
 import decimal
 import six
 
@@ -165,7 +164,7 @@ class Argument(object):
 
         if current_app.config.get('BUNDLE_ERRORS', False) or bundle_errors:
             return error, msg
-        flask_restful.abort(400, message=msg)
+        abort(400, message=msg)
 
     def parse(self, request, bundle_errors=False):
         '''Parses argument value(s) from the request, converting according to
@@ -331,7 +330,7 @@ class RequestParser(object):
             if found or arg.store_missing:
                 namespace[arg.dest or arg.name] = value
         if errors:
-            flask_restful.abort(400, message=errors)
+            abort(400, message=errors)
 
         if strict and req.unparsed_arguments:
             raise exceptions.BadRequest('Unknown arguments: %s'

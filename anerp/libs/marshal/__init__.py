@@ -19,7 +19,7 @@ def marshal(data, fields, envelope=None):
                      response
 
 
-    >>> from flask_restful import fields, marshal
+    >>> from marshal import fields, marshal
     >>> data = { 'a': 100, 'b': 'foo' }
     >>> mfields = { 'a': fields.Raw }
 
