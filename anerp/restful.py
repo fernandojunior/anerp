@@ -19,9 +19,3 @@ type_mapper = {
 def create_marshaller(keys, types):
     '''Create fields based on default Python types to use with marshal'''
     return {k: type_mapper[v] for k, v in zip(keys, types)}
-
-
-def jsonify(data, marshaller=None):
-    if marshaller:
-        data = marshal(data, marshaller)
-    return original_jsonify(data=data)
