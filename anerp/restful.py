@@ -30,6 +30,11 @@ class API:
 
     marshaller = None
 
+    url_rules = {
+        '/': ['get', 'post'],
+        '/<int:id>': ['get', 'patch', 'delete'],
+    }
+
     def __init__(self, **options):
         self.request_parsers = RequestParsers(self.request_parsers)
         self.blueprint = Blueprint(self.model.__name__, __name__, **options)
@@ -40,15 +45,15 @@ class API:
         app.register_blueprint(cls().blueprint, **options)
 
     def add_url_rule(self, rule, fn):
+        if isinstance(fn, str):
+            fn = getattr(self, fn)
         name = fn.__name__
         self.blueprint.add_url_rule(rule, name, fn, methods=[name.upper()])
 
     def init_url_rules(self):
-        self.add_url_rule('/', self.get)
-        self.add_url_rule('/<int:id>', self.get)
-        self.add_url_rule('/<int:id>', self.patch)
-        self.add_url_rule('/<int:id>', self.delete)
-        self.add_url_rule('/', self.post)
+        for rule, views in self.url_rules.items():
+            for view in views:
+                self.add_url_rule(rule, view)
 
     @property
     def model(self):
