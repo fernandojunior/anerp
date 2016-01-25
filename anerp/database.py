@@ -7,7 +7,6 @@ from sqlalchemy.orm import relationship
 
 from .compat import basestring
 from .ext import db
-from .restful import create_marshaller
 
 # Alias common SQLAlchemy names
 Column = db.Column
@@ -81,21 +80,7 @@ class SurrogatePK(object):
         return None
 
 
-class RESTFulMixin(object):
-    '''
-    Mixin that adds convenience methods RESTful operations.
-    '''
-
-    @classmethod
-    def create_marshaller(cls, *args):
-        '''Create marshaller based on model columns (args) to be used with
-        `flask_restful.marshal`
-        '''
-        column_types = [getattr(cls, col).type.python_type for col in args]
-        return create_marshaller(args, column_types)
-
-
-class Model(RESTFulMixin, CRUDMixin, SurrogatePK, db.Model):
+class Model(CRUDMixin, SurrogatePK, db.Model):
     '''Base model class that includes CRUD convenience methods.'''
 
     __abstract__ = True
