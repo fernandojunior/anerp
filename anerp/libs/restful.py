@@ -30,30 +30,38 @@ class API:
 
     marshaller = None
 
-    url_rules = {
-        '/': ['get', 'post'],
-        '/<int:id>': ['get', 'patch', 'delete'],
-    }
+    url_rules = [
+        ('/fields', 'get_fields', {'methods': ['GET']})
+    ]
 
     def __init__(self, **options):
         self.request_parsers = RequestParsers(self.request_parsers)
         self.blueprint = Blueprint(self.model.__name__, __name__, **options)
+        self.init_default_url_rules()
         self.init_url_rules()
 
     @classmethod
     def init_app(cls, app, **options):
         app.register_blueprint(cls().blueprint, **options)
 
-    def add_url_rule(self, rule, fn):
-        if isinstance(fn, str):
-            fn = getattr(self, fn)
-        name = fn.__name__
-        self.blueprint.add_url_rule(rule, name, fn, methods=[name.upper()])
+    def add_url_rule(self, rule, view_func, **options):
+        if isinstance(view_func, str):
+            view_func = getattr(self, view_func)
+        endpoint = view_func.__name__
+        method = endpoint.split('_')[0].upper()
+        options['methods'] = options.get('methods', [method])
+        self.blueprint.add_url_rule(rule, endpoint, view_func, **options)
+
+    def init_default_url_rules(self):
+        self.add_url_rule('/', self.get)
+        self.add_url_rule('/<int:id>', self.get)
+        self.add_url_rule('/<int:id>', self.patch)
+        self.add_url_rule('/<int:id>', self.delete)
+        self.add_url_rule('/', self.post)
 
     def init_url_rules(self):
-        for rule, views in self.url_rules.items():
-            for view in views:
-                self.add_url_rule(rule, view)
+        for each in self.url_rules:
+            self.add_url_rule(each[0], each[1], **each[2])
 
     @property
     def model(self):
@@ -78,3 +86,7 @@ class API:
     def post(self):
         obj = self.model.create(**self.request_parsers('post'))
         return self.get(obj.id)
+
+    def get_meta(self):
+        data = dict((k, str(v)) for k, v in self.marshaller.items())
+        return jsonify(data=data)
