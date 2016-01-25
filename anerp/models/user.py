@@ -4,7 +4,7 @@ from datetime import datetime
 
 from flask_login import UserMixin
 
-from anerp.database import Column, Model, db, reference_col, relationship
+from anerp.libs.database import Column, Model, db, reference_col, relationship
 from anerp.ext import bcrypt
 
 

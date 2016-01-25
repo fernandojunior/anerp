@@ -8,7 +8,7 @@ from flask_script import Manager, Server, Shell
 from flask_script.commands import ShowUrls
 
 from anerp.app import create_app
-from anerp.database import db
+from anerp.libs.database import db
 from anerp.settings import DevConfig, ProdConfig
 from anerp.models.user import User
 

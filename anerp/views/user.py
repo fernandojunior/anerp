@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''User views.'''
-from flask_restful import fields
+from anerp.libs.marshal import fields
 from anerp.utils import Dictionary
 from anerp.models.user import User
 

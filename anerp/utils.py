@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 """Helper utilities and decorators."""
+import sys
 from flask import flash
+
+
+"""Python 2/3 compatibility module."""
+if int(sys.version[0]) == 2:
+    text_type = unicode  # noqa
+    binary_type = str
+    string_types = (str, unicode)  # noqa
+    unicode = unicode  # noqa
+    basestring = basestring  # noqa
+else:
+    text_type = str
+    binary_type = bytes
+    string_types = (str,)
+    unicode = str
+    basestring = (str, bytes)
 
 
 def flash_errors(form, category='warning'):

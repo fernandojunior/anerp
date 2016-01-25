@@ -3,8 +3,8 @@
 RESTFul module.
 """
 from flask import Blueprint, jsonify
-from flask_restful import marshal
-from anerp.reqparse import RequestParsers
+from anerp.libs.marshal import marshal
+from anerp.libs.reqparse import RequestParsers
 
 
 def jsonify_with_marshal(data, marshaller):
