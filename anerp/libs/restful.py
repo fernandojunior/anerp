@@ -11,14 +11,18 @@ def jsonify_with_marshal(data, marshaller):
     return jsonify(data=marshal(data, marshaller))
 
 
-def register_api(module, app, **options):
+def create_api(module, **options):
     attrs = {
         '__model__': module.__model__,
         'marshaller': module.marshaller,
         'request_arguments': module.request_arguments,
         'request_parsers': module.request_parsers
     }
-    cls = type(module.__name__ + 'API', (API, object), attrs)
+    return type(module.__name__ + 'API', (API, object), attrs)
+
+
+def register_api(module, app, **options):
+    cls = create_api(module, **options)
     cls.init_app(app, **options)
 
 
