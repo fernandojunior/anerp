@@ -8,12 +8,12 @@ from pip.req import parse_requirements as parse
 requirements = lambda f: [str(i.req) for i in parse(f, session=False)]
 
 # Read the README file
-with open("README.rst") as f:
+with open('README.rst') as f:
     README = f.read()
 
 # Manually extract the __about__
 __about__ = {}
-with open("anerp/__about__.py") as f:
+with open('anerp/__about__.py') as f:
     exec(f.read(), __about__)
 
 setup(
@@ -26,7 +26,7 @@ setup(
         'License :: OSI Approved :: ' + __about__['__license__'],
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',

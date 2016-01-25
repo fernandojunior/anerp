@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Helper utilities and decorators."""
+'''Helper utilities and decorators.'''
 import sys
-from flask import flash
 
 
-"""Python 2/3 compatibility module."""
+'''Python 2/3 compatibility module.'''
 if int(sys.version[0]) == 2:
     text_type = unicode  # noqa
     binary_type = str
@@ -17,13 +16,6 @@ else:
     string_types = (str,)
     unicode = str
     basestring = (str, bytes)
-
-
-def flash_errors(form, category='warning'):
-    """Flash all errors for a form."""
-    for field, errors in form.errors.items():
-        for e in errors:
-            flash('{}:{}'.format(getattr(form, field).label.text, e), category)
 
 
 class Dictionary(dict):

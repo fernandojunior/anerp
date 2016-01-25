@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
+'''
 RESTFul module.
-"""
+'''
 from flask import Blueprint, jsonify
 from anerp.libs.marshal import marshal
 from anerp.libs.reqparse import RequestParsers
@@ -31,7 +31,7 @@ class API:
     marshaller = None
 
     url_rules = [
-        ('/fields', 'get_fields', {'methods': ['GET']})
+        ('/fields', 'getfields', {'methods': ['GET']})
     ]
 
     def __init__(self, **options):
@@ -87,6 +87,6 @@ class API:
         obj = self.model.create(**self.request_parsers('post'))
         return self.get(obj.id)
 
-    def get_meta(self):
+    def getfields(self):
         data = dict((k, str(v)) for k, v in self.marshaller.items())
         return jsonify(data=data)

@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 '''
-Based on `flask_restful.marshal` and `flask_restful.fields` version 0.3.5
+Based on `flask_restful.marshal` and `flask_restful.fields` version 0.3.5.
 '''
 try:
     from collections import OrderedDict

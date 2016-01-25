@@ -1,34 +1,30 @@
 # -*- coding: utf-8 -*-
-"""Application configuration."""
+'''Application configuration.'''
 import os
 
 
 class Config(object):
-    """Base configuration."""
+    '''Base configuration.'''
 
     SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'secret-key')  # TODO
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     BCRYPT_LOG_ROUNDS = 13
-    DEBUG_TB_ENABLED = False  # Disable Debug toolbar
-    DEBUG_TB_INTERCEPT_REDIRECTS = False
-    ASSETS_DEBUG = False
-    CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
+    CACHE_TYPE = 'simple'  # Can be 'memcached', 'redis', etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    BUNDLE_ERRORS = True  # Flask-RESTful error handling
+    BUNDLE_ERRORS = True  # reqparse error handling
 
 
 class ProdConfig(Config):
-    """Production configuration."""
+    '''Production configuration.'''
 
     ENV = 'prod'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'  # TODO
-    DEBUG_TB_ENABLED = False  # Disable Debug toolbar
 
 
 class DevConfig(Config):
-    """Development configuration."""
+    '''Development configuration.'''
 
     ENV = 'dev'
     DEBUG = True
@@ -36,13 +32,11 @@ class DevConfig(Config):
     # Put the db file in project root
     DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format(DB_PATH)
-    DEBUG_TB_ENABLED = True
-    ASSETS_DEBUG = True  # Don't bundle/minify static assets
-    CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
+    CACHE_TYPE = 'simple'  # Can be 'memcached', 'redis', etc.
 
 
 class TestConfig(Config):
-    """Test configuration."""
+    '''Test configuration.'''
 
     TESTING = True
     DEBUG = True

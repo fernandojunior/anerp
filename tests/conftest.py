@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Defines fixtures available to all tests."""
+'''Defines fixtures available to all tests.'''
 
 import pytest
 from webtest import TestApp
 
 from anerp.app import create_app
-from anerp.database import db as _db
+from anerp.libs.database import db as _db
 from anerp.settings import TestConfig
 
 from .factories import UserFactory
@@ -13,7 +13,7 @@ from .factories import UserFactory
 
 @pytest.yield_fixture(scope='function')
 def app():
-    """An application for the tests."""
+    '''An application for the tests.'''
     _app = create_app(TestConfig)
     ctx = _app.test_request_context()
     ctx.push()
@@ -25,13 +25,13 @@ def app():
 
 @pytest.fixture(scope='function')
 def testapp(app):
-    """A Webtest app."""
+    '''A Webtest app.'''
     return TestApp(app)
 
 
 @pytest.yield_fixture(scope='function')
 def db(app):
-    """A database for the tests."""
+    '''A database for the tests.'''
     _db.app = app
     with app.app_context():
         _db.create_all()
@@ -45,7 +45,7 @@ def db(app):
 
 @pytest.fixture
 def user(db):
-    """A user for the tests."""
+    '''A user for the tests.'''
     user = UserFactory(password='myprecious')
     db.session.commit()
     return user

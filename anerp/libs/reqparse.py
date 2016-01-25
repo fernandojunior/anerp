@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Based on `flask-restful.reqparse` version 0.3.5.
 '''
