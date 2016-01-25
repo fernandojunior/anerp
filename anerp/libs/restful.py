@@ -18,7 +18,7 @@ def register_api(module, app, **options):
         'request_arguments': module.request_arguments,
         'request_parsers': module.request_parsers
     }
-    cls = type(module.__name__ + 'API', (API,), attrs)
+    cls = type(module.__name__ + 'API', (API, object), attrs)
     cls.init_app(app, **options)
 
 
