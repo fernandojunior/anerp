@@ -5,7 +5,8 @@ from flask import Flask, render_template
 from .ext import assets, bcrypt, cache, db, debug_toolbar, login_manager, \
     migrate
 
-from .views import main, public, user
+from .views import main, public
+from anerp.views.user import UserAPI
 
 
 def create_app(config):
@@ -18,6 +19,7 @@ def create_app(config):
     app.config.from_object(config)
     register_extensions(app)
     register_blueprints(app)
+    register_apis(app)
     register_errorhandlers(app)
     return app
 
@@ -38,8 +40,11 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(main.blueprint, url_prefix='/')
     app.register_blueprint(public.blueprint, url_prefix='/public')
-    app.register_blueprint(user.blueprint, url_prefix='/users')
     return None
+
+
+def register_apis(app):
+    UserAPI.init_app(app, url_prefix='/users', static_folder='static')
 
 
 def register_errorhandlers(app):

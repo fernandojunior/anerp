@@ -25,17 +25,23 @@ from anerp.utils import jsonify
 from anerp.reqparse import RequestParsers
 
 
-class Api:
+class API:
 
-    def __init__(self, model, request_parsers, marshaller):
-        self.model = model
-        self.request_parsers = RequestParsers(request_parsers)
-        self.marshaller = marshaller
-        self.app = Blueprint(model.__name__, __name__, static_folder='static')
+    __model__ = None
+
+    request_parsers = None
+
+    marshaller = None
+
+    def __init__(self, **options):
+        self.request_parsers = RequestParsers(self.request_parsers)
+        self.app = Blueprint(self.model.__name__, __name__, **options)
         self.url_rules()
 
-    def init_api(self, app):
-        app.register_blueprint(self.app)
+    @classmethod
+    def init_app(cls, app, **options):
+        api = cls()
+        app.register_blueprint(api.app, **options)
 
     def add_url_rule(self, rule, view_func):
         name = view_func.__name__
@@ -49,8 +55,12 @@ class Api:
         self.add_url_rule('/', self.post)
 
     @property
+    def model(self):
+        return self.__model__
+
+    @property
     def query(self):
-        return self.model.query
+        return self.__model__.query
 
     def get(self, id=None):
         data = self.query.get_or_404(id) if id else self.query.all()
