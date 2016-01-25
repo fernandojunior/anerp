@@ -5,8 +5,9 @@ from flask import Flask, render_template
 from .ext import assets, bcrypt, cache, db, debug_toolbar, login_manager, \
     migrate
 
-from .views import main, public
-from anerp.views.user import UserAPI
+from .restful import register_api
+from .views import main, public, user
+# from anerp.views.user import UserAPI
 
 
 def create_app(config):
@@ -44,7 +45,7 @@ def register_blueprints(app):
 
 
 def register_apis(app):
-    UserAPI.init_app(app, url_prefix='/users', static_folder='static')
+    register_api(user, app, url_prefix='/users', static_folder='static')
 
 
 def register_errorhandlers(app):

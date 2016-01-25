@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Helper utilities and decorators."""
 from flask import flash
-from flask import jsonify as original_jsonify
-from flask_restful import marshal
 
 
 def flash_errors(form, category='warning'):
@@ -10,12 +8,6 @@ def flash_errors(form, category='warning'):
     for field, errors in form.errors.items():
         for e in errors:
             flash('{}:{}'.format(getattr(form, field).label.text, e), category)
-
-
-def jsonify(data, marshaller=None):
-    if marshaller:
-        data = marshal(data, marshaller)
-    return original_jsonify(data=data)
 
 
 class Dictionary(dict):

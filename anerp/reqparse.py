@@ -5,12 +5,6 @@ from anerp.utils import Dictionary
 
 class RequestParser(OriginalRequestParser):
 
-    def __init__(self, *args, **kargs):
-        arguments = kargs.pop('arguments', None)
-        super(RequestParser, self).__init__(*args, **kargs)
-        if arguments:
-            self.add_arguments(arguments)
-
     def add_arguments(self, arguments):
         '''Add arguments to be parsed. Accepts either a dictionary of arguments
         or a list of `Argument`.'''
@@ -26,14 +20,15 @@ class RequestParser(OriginalRequestParser):
 
 class RequestParsers(Dictionary):
 
-    def __init__(self, parsers):
+    def __init__(self, mapping):
         '''
         Create a `RequestParser` dictionary from a mapping object's
             (name, arguments) pairs.
         '''
         self.parsers = {}
-        for name, arguments in parsers.items():
-            self.parsers[name] = RequestParser(arguments=arguments)
+        for name, arguments in mapping.items():
+            self.parsers[name] = RequestParser()
+            self.parsers[name].add_arguments(arguments)
 
     def __call__(self, name):
         '''Parse a request parse with given name.'''
