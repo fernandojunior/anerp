@@ -11,22 +11,23 @@ def jsonify_with_marshal(data, marshaller):
     return jsonify(data=marshal(data, marshaller))
 
 
-def create_api(module, **options):
+def build_api(config, **options):
     attrs = {
-        '__model__': module.__model__,
-        'marshaller': module.marshaller,
-        'request_arguments': module.request_arguments,
-        'request_parsers': module.request_parsers
+        '__model__': config.__model__,
+        'marshaller': config.marshaller,
+        'request_arguments': config.request_arguments,
+        'request_parsers': config.request_parsers
     }
-    return type(module.__name__ + 'API', (API, object), attrs)
+    cls_name = config.__model__.__name__ + 'API'
+    return type(cls_name, (API, object), attrs)
 
 
-def register_api(module, app, **options):
-    cls = create_api(module, **options)
-    cls.init_app(app, **options)
+def register_api(config, app, **options):
+    cls = build_api(config, **options)
+    cls().init_app(app, **options)
 
 
-class API:
+class API(object):
 
     __model__ = None
 
@@ -44,9 +45,8 @@ class API:
         self.init_default_url_rules()
         self.init_url_rules()
 
-    @classmethod
-    def init_app(cls, app, **options):
-        app.register_blueprint(cls().blueprint, **options)
+    def init_app(self, app, **options):
+        app.register_blueprint(self.blueprint, **options)
 
     def add_url_rule(self, rule, view_func, **options):
         if isinstance(view_func, str):

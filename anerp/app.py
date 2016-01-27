@@ -3,7 +3,7 @@
 from flask import Flask
 from .ext import bcrypt, cache, db, login_manager, \
     migrate
-from .libs.restful import create_api
+from .libs.restful import register_api
 from .views import main, user
 
 
@@ -36,4 +36,5 @@ def register_blueprints(app):
 
 
 def register_apis(app):
-    create_api(user).init_app(app, url_prefix='/users', static_folder='static')
+    '''Register RESTFul API's'''
+    register_api(user, app, url_prefix='/users', static_folder='static')
