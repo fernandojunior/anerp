@@ -133,8 +133,9 @@ class Argument(object):
             else:
                 raise ValueError('Must not be null!')
 
-        # and check if we're expecting a filestorage and haven't overridden `type`
-        # (required because the below instantiation isn't valid for FileStorage)
+        # and check if we're expecting a filestorage and haven't overridden
+        # `type` (required because the below instantiation isn't valid for
+        # FileStorage)
         elif isinstance(value, FileStorage) and self.type == FileStorage:
             return value
 
@@ -158,9 +159,9 @@ class Argument(object):
             dict with the name of the argument and the error message to be
             bundled
         '''
-        error_str = six.text_type(error)
-        error_msg = self.help.format(error_msg=error_str) if self.help else error_str
-        msg = {self.name: '{0}'.format(error_msg)}
+        err_str = six.text_type(error)
+        err_msg = self.help.format(error_msg=err_str) if self.help else err_str
+        msg = {self.name: '{0}'.format(err_msg)}
 
         if current_app.config.get('BUNDLE_ERRORS', False) or bundle_errors:
             return error, msg
@@ -264,18 +265,17 @@ class RequestParser(object):
 
     :param bool trim: If enabled, trims whitespace on all arguments in this
         parser
-    :param bool bundle_errors: If enabled, do not abort when first error occurs,
-        return a dict with the name of the argument and the error message to be
-        bundled and return all validation errors
+    :param bool bundle_errors: If enabled, do not abort when first error
+        occurs, return a dict with the name of the argument and the error
+        message to be bundled and return all validation errors
     '''
 
-    def __init__(self, argument_class=Argument, namespace_class=Namespace,
-            trim=False, bundle_errors=False):
+    def __init__(self, **kwargs):
         self.args = []
-        self.argument_class = argument_class
-        self.namespace_class = namespace_class
-        self.trim = trim
-        self.bundle_errors = bundle_errors
+        self.argument_class = kwargs.get('argument_class', Argument)
+        self.namespace_class = kwargs.get('namespace_class', Namespace)
+        self.trim = kwargs.get('trim', False)
+        self.bundle_errors = kwargs.get('bundle_errors', False)
 
     def add_argument(self, *args, **kwargs):
         '''Adds an argument to be parsed.
@@ -292,9 +292,9 @@ class RequestParser(object):
         else:
             self.args.append(self.argument_class(*args, **kwargs))
 
-        #Do not know what other argument classes are out there
+        # Do not know what other argument classes are out there
         if self.trim and self.argument_class is Argument:
-            #enable trim for appended element
+            # enable trim for appended element
             self.args[-1].trim = kwargs.get('trim', self.trim)
 
         return self
@@ -311,7 +311,8 @@ class RequestParser(object):
         '''Parse all arguments from the provided request and return the results
         as a Namespace
 
-        :param strict: if req includes args not in parser, throw 400 BadRequest exception
+        :param strict: if req includes args not in parser, throw 400 BadRequest
+            exception
         '''
         if req is None:
             req = request
