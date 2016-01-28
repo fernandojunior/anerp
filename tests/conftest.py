@@ -5,7 +5,7 @@ import pytest
 from webtest import TestApp
 
 from anerp.app import create_app
-from anerp.libs.database import db as _db
+from anerp.lib.database import db as _db
 from anerp.settings import TestConfig
 
 from .factories import UserFactory

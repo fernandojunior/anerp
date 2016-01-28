@@ -3,7 +3,7 @@
 from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
-from anerp.libs.database import db
+from anerp.lib.database import db
 from anerp.models.user import User
 
 
