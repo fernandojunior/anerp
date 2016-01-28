@@ -9,7 +9,8 @@ except ImportError:
 
 
 def marshal(data, fields, envelope=None):
-    """Takes raw data (in the form of a dict, list, object) and a dict of
+    '''
+    Takes raw data (in the form of a dict, list, object) and a dict of
     fields to output and filters the data based on those fields.
 
     :param data: the actual object(s) from which the fields are taken from
@@ -28,8 +29,7 @@ def marshal(data, fields, envelope=None):
 
     >>> marshal(data, mfields, envelope='data')
     OrderedDict([('data', OrderedDict([('a', 100)]))])
-
-    """
+    '''
 
     def make(cls):
         if isinstance(cls, type):

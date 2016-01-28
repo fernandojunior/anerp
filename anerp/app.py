@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 '''The app module, containing the app factory function.'''
 from flask import Flask
-from .ext import bcrypt, cache, db, login_manager, \
-    migrate
-from .libs.restful import register_api
+from .ext import bcrypt, cache, db, login_manager, migrate
+from .lib.restful import register_api
 from .views import main, user
 
 
 def create_app(config):
-    '''An application factory, as explained in
+    '''
+    An application factory, as explained in
     http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config: The configuration object to use.

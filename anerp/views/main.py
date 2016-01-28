@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect
+from flask import Blueprint, redirect, url_for
 
 
 blueprint = Blueprint('main', __name__, static_folder='static')

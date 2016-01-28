@@ -2,13 +2,13 @@
 '''
 Based on `flask-restful.reqparse` version 0.3.5.
 '''
+import decimal
+import six
 from copy import deepcopy
 from flask import abort as original_flask_abort
 from flask import current_app, request
 from werkzeug.datastructures import MultiDict, FileStorage
 from werkzeug import exceptions
-import decimal
-import six
 
 _friendly_location = {
     u'json': u'the JSON body',
@@ -24,7 +24,8 @@ text_type = lambda x: six.text_type(x)
 
 
 def abort(http_status_code, **kwargs):
-    '''Raise a HTTPException for the given http_status_code. Attach any keyword
+    '''
+    Raise a HTTPException for the given http_status_code. Attach any keyword
     arguments to the exception for later processing.
     '''
     # noinspection PyUnresolvedReferences
@@ -104,7 +105,9 @@ class Argument(object):
         self.nullable = nullable
 
     def source(self, request):
-        '''Pulls values off the request in the provided location
+        '''
+        Pulls values off the request in the provided location.
+
         :param request: The flask request object to parse arguments from
         '''
         if isinstance(self.location, six.string_types):
@@ -151,8 +154,9 @@ class Argument(object):
                 return self.type(value)
 
     def handle_validation_error(self, error, bundle_errors):
-        '''Called when an error is raised while parsing. Aborts the request
-        with a 400 status and an error message
+        '''
+        Called when an error is raised while parsing. Aborts the request
+        with a 400 status and an error message.
 
         :param error: the error that was raised
         :param bundle_errors: do not abort when first error occurs, return a
@@ -168,7 +172,8 @@ class Argument(object):
         abort(400, message=msg)
 
     def parse(self, request, bundle_errors=False):
-        '''Parses argument value(s) from the request, converting according to
+        '''
+        Parses argument value(s) from the request, converting according to
         the argument's type.
 
         :param request: The flask request object to parse arguments from
@@ -253,7 +258,8 @@ class Argument(object):
 
 
 class RequestParser(object):
-    '''Enables adding and parsing of multiple arguments in the context of a
+    '''
+    Enables adding and parsing of multiple arguments in the context of a
     single request. Ex::
 
         from flask import request
@@ -278,7 +284,8 @@ class RequestParser(object):
         self.bundle_errors = kwargs.get('bundle_errors', False)
 
     def add_argument(self, *args, **kwargs):
-        '''Adds an argument to be parsed.
+        '''
+        Adds an argument to be parsed.
 
         Accepts either a single instance of Argument or arguments to be passed
         into :class:`Argument`'s constructor.
@@ -300,16 +307,19 @@ class RequestParser(object):
         return self
 
     def add_arguments(self, arguments):
-        '''Add arguments to be parsed. Accepts either a mapping (name, values)
-        of arguments or a list of `Argument`.'''
+        '''
+        Add arguments to be parsed. Accepts either a mapping (name, values) of
+        arguments or a list of `Argument`.
+        '''
         if isinstance(arguments, dict):
             arguments = [Argument(*i) for i in arguments.items()]
         for argument in arguments:
             self.add_argument(argument)
 
     def parse(self, req=None, strict=False):
-        '''Parse all arguments from the provided request and return the results
-        as a Namespace
+        '''
+        Parse all arguments from the provided request and return the results
+        as a Namespace;
 
         :param strict: if req includes args not in parser, throw 400 BadRequest
             exception
@@ -340,7 +350,9 @@ class RequestParser(object):
         return namespace
 
     def copy(self):
-        ''' Creates a copy of this RequestParser with the same set of arguments '''
+        '''
+        Creates a copy of this RequestParser with the same set of arguments.
+        '''
         parser_copy = self.__class__(self.argument_class, self.namespace_class)
         parser_copy.args = deepcopy(self.args)
         parser_copy.trim = self.trim
@@ -348,7 +360,7 @@ class RequestParser(object):
         return parser_copy
 
     def replace_argument(self, name, *args, **kwargs):
-        ''' Replace the argument matching the given name with a new version. '''
+        '''Replace the argument matching the given name with a new version.'''
         new_arg = self.argument_class(name, *args, **kwargs)
         for index, arg in enumerate(self.args[:]):
             if new_arg.name == arg.name:
@@ -358,7 +370,7 @@ class RequestParser(object):
         return self
 
     def remove_argument(self, name):
-        ''' Remove the argument matching the given name. '''
+        '''Remove the argument matching the given name.'''
         for index, arg in enumerate(self.args[:]):
             if name == arg.name:
                 del self.args[index]
@@ -367,17 +379,17 @@ class RequestParser(object):
 
 
 class RequestParsers(object):
+    '''
+    Ceates a `RequestParser` container from a mapping object's
+        (name, arguments) pairs.
+    '''
 
     def __init__(self, mapping):
-        '''
-        Create a `RequestParser` container from a mapping object's
-            (name, arguments) pairs.
-        '''
         self.parsers = {}
         for name, arguments in mapping.items():
             self.parsers[name] = RequestParser()
             self.parsers[name].add_arguments(arguments)
 
     def __call__(self, name):
-        '''Parse a request parse with given name.'''
+        '''Parse a request parser with given name.'''
         return self.parsers[name].parse()

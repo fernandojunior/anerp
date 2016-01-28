@@ -4,7 +4,7 @@ Database module, including the SQLAlchemy database object and DB-related
 utilities.
 '''
 from sqlalchemy.orm import relationship
-from anerp.ext import db
+from ..ext import db
 
 # Alias common SQLAlchemy names
 Column = db.Column

@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
+import six
 from calendar import timegm
 from decimal import Decimal as MyDecimal, ROUND_HALF_EVEN
 from email.utils import formatdate
-import six
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
-    # python3
-    from urllib.parse import urlparse, urlunparse
+    from urllib.parse import urlparse, urlunparse  # python3
 
 from flask import url_for, request
 from . import marshal
@@ -18,9 +17,7 @@ __all__ = ['String', 'FormattedString', 'Url', 'DateTime', 'Float',
 
 
 class MarshallingException(Exception):
-    '''
-    This is an encapsulating Exception in case of marshalling error.
-    '''
+    '''This is an encapsulating Exception in case of marshalling error.'''
 
     def __init__(self, underlying_exception):
         # just put the contextual representation of the error to hint on what
@@ -33,7 +30,7 @@ def is_indexable_but_not_string(obj):
 
 
 def get_value(key, obj, default=None):
-    '''Helper for pulling a keyed value off various types of objects'''
+    '''Helper for pulling a keyed value off various types of objects.'''
     if isinstance(key, int):
         return _get_value_for_key(key, obj, default)
     elif callable(key):

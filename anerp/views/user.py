@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 '''User views.'''
-from anerp.utils import Dictionary
-from anerp.libs.marshal import fields
-from anerp.models.user import User
+from ..utils import Dictionary
+from ..lib.marshal import fields
+from ..models.user import User
 
 __model__ = User
 
