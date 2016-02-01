@@ -60,11 +60,6 @@ target/
 # Flask-Migrate
 migrations/
 
-# Flask-Assets
-common.css
-common.js
-.webassets-cache
-
 # sqlite
 *.db
 
