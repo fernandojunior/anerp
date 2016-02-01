@@ -42,6 +42,7 @@ setup(
     name=__about__['__slug__'],
     packages=find_packages(exclude=['tests']),
     platforms='any',
+    py_modules=['manage'],
     url=__about__['__url__'],
     version=__about__['__version__'],
     zip_safe=False
